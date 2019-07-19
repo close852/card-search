@@ -1,0 +1,10 @@
+.layout-footer {
+    min-width: 350px;
+    display: flex;
+    padding-top: 20px;
+    height: 100px;
+    background-color:#424242;
+    display: flex;
+    justify-content: center;
+    color: white;
+}

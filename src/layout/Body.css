@@ -1,0 +1,10 @@
+.layout-body{
+    display: flex;
+    justify-content: center;
+
+}
+.container-wrapper{
+    display: flex;
+    justify-content: center;
+
+}

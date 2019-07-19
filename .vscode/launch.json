@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TodoApplication",
+            "request": "launch",
+            "mainClass": "com.cjhm.TodoApplication",
+            "projectName": "card-search-backend"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TodoApplication",
+            "request": "launch",
+            "mainClass": "com.cjhm.cardsearchbackend.TodoApplication",
+            "projectName": "card-search-backend"
+        }
+    ]
+}
