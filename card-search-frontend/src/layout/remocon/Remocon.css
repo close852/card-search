@@ -1,0 +1,14 @@
+.remote{
+    position: fixed;
+    text-align: right;
+    padding: 5px;
+    bottom:10%;
+    right:3%;
+}
+.remote>div{
+    padding-top:5px;
+
+}
+.remote>div>.button {
+    background-color: rgb(63,81,181);
+}

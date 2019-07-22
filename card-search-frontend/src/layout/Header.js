@@ -1,9 +1,9 @@
 import React from 'react'
-import './Header.css'
-import { SearchBar } from '../components/search'
+import 'layout/Header.css'
+import { SearchBar } from 'components/search'
 function Header({ setTodoList }) {
     return (
-        <div>
+        <div style={{ height: '20%' }}>
             <div className="layout-header">
                 <SearchBar setTodoList={setTodoList} />
             </div>

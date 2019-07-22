@@ -3,8 +3,7 @@ import { Card } from 'react-bootstrap'
 import { TagList } from '../tag'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Todo.css'
-function Todo({ header, title, content, tagList }) {
-    console.log(tagList)
+function Todo({ header, title, content, tagList, setTodoList }) {
     return (
         <div>
             <Card className="single-card">
@@ -14,7 +13,7 @@ function Todo({ header, title, content, tagList }) {
                     <Card.Text>{content}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                    <TagList tagList={tagList} />
+                    <TagList tagList={tagList} setTodoList={setTodoList} />
                 </Card.Footer>
             </Card>
 
@@ -26,7 +25,7 @@ Todo.defaultProps = {
     header: 'Todo',
     title: 'title',
     content: 'no text',
-    tags: [1, 2, 3]
+    tags: []
 }
 
 export default Todo

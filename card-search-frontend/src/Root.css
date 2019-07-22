@@ -1,0 +1,14 @@
+.remote2{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+    padding: 5px;
+}
+.remote{
+    position: fixed;
+    text-align: right;
+    padding: 5px;
+    bottom:10%;
+    right:3%;
+}

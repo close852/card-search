@@ -11,18 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+
 @RestController
 @Slf4j
-public class TodoController {
+public class TagController {
+
     TodoRepository todoRepository;
 
-    TodoController(TodoRepository todoRepository) {
+    TagController(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
-    @GetMapping("/api/todo")
-    public List<Todo> todo(@RequestParam(required = false, defaultValue = "") String query) {
-        List<Todo> todoList = todoRepository.getTodoList(query);
+    @GetMapping("/api/tag")
+    public List<Todo> todo(@RequestParam(required = false) Long query) {
+        List<Todo> todoList = new ArrayList<>();
+        System.out.println("query>>> " + query);
+        if (query != 0) {
+            todoList = todoRepository.getTagList(query);
+        }
         log.info("뭐냐... {}", todoList);
         return todoList;
     }
