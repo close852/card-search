@@ -11,5 +11,6 @@ import com.cjhm.entity.Todo;
 public interface TodoRepository extends JpaRepository<Todo, Long> {
 
 	public List<Todo> findByTitle(String title);
+	public List<Todo> findByContentIgnoreCaseContaining(String content);
 	
 }

@@ -1,11 +1,12 @@
 import React from 'react'
 import 'layout/Header.css'
 import { SearchBar } from 'components/search'
-function Header({ setTodoList }) {
+function Header({ history, location, setTodoList }) {
+    console.log('Header history', history);
     return (
         <div style={{ height: '20%' }}>
             <div className="layout-header">
-                <SearchBar setTodoList={setTodoList} />
+                <SearchBar history={history} location={location} setTodoList={setTodoList} />
             </div>
         </div>
     )

@@ -3,7 +3,6 @@ package com.cjhm.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.logging.log4j.CloseableThreadContext.Instance;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,23 +24,27 @@ public class TodoController {
     }
 
     @GetMapping("/api/todo")
-    public List<Todo> todo(@RequestParam(required = false, defaultValue = "") String query) {
-        List<Todo> todoList = todoRepository.findAll();
+    public List<Todo> todo(@RequestParam(required = false, defaultValue = "") String query,
+            @RequestParam Map<String, String> parameters) {
+        log.info("keyword query > " + query);
+        List<Todo> todoList = todoRepository.findByContentIgnoreCaseContaining(query);
+        System.out.println(parameters);
         log.info("뭐냐... {}", todoList.size());
-        todoList.stream().forEach(todo ->log.info("size : "+todo.getTagList().size()));
+        todoList.stream().forEach(todo -> log.info("size : " + todo.getTagList().size()));
         return todoList;
     }
+
     @PostMapping("/api/todo")
-    public Todo addTodo(@ModelAttribute Todo todo,@RequestParam Map<String, String> parameters) {
-    	
-//    	log.info("todo.getProductNameKo >> "+productNameKo+" / "+category+"/"+tags);
-//    	log.info(tags+"/"+substitude);
-    	System.out.println(parameters);
-    	System.out.println(todo.toString());
-    	System.out.println(todo.getTags());
-    	System.out.println(todo.getTags().getClass());
-    	
-    	return todo;
+    public Todo addTodo(@ModelAttribute Todo todo, @RequestParam Map<String, String> parameters) {
+
+        // log.info("todo.getProductNameKo >> "+productNameKo+" / "+category+"/"+tags);
+        // log.info(tags+"/"+substitude);
+        System.out.println(parameters);
+        System.out.println(todo.toString());
+        System.out.println(todo.getTags());
+        System.out.println(todo.getTags().getClass());
+
+        return todo;
     }
 
 }
