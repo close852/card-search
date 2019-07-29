@@ -5,7 +5,7 @@ import qs from 'qs'
 import './ProductAdd.css'
 import axios from 'axios'
 import { List } from 'immutable'
-function ProductAdd() {
+function ProductAdd({ history, addTodoList }) {
 
     const [validated, setValidated] = useState(false);
     const [productNameKo, setProductNameKo] = useState('1');
@@ -16,11 +16,11 @@ function ProductAdd() {
     const [substitude, setSubstitude] = useState([1, 2].toString());
     const handleSubmit = (event) => {
         const form = event.currentTarget;
+        event.stopPropagation();
+        event.preventDefault();
         if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+            setValidated(true);
         }
-        setValidated(false);
         let fData2 = {
             productNameKo,
             productNameEn,
@@ -34,6 +34,9 @@ function ProductAdd() {
         axios.post('/api/todo', qs.stringify(fData2))
             .then(res => {
                 console.log('res.data', res.data);
+                console.log(addTodoList);
+                addTodoList(res.data);
+                history.push('/')
             }).catch(res => {
                 console.error(res);
             })

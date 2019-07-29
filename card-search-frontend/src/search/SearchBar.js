@@ -1,23 +1,23 @@
 import React, { useState } from 'react'
 import { InputGroup, FormControl, Button } from 'react-bootstrap'
-import queryString from 'query-string'
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
-function SearchBar({ history, location, setTodoList }) {
+function SearchBar({ history, location, setTodoList, keyword, setKeyword }) {
     // console.log('SearchBar', history);
     // console.log('location.search.q', queryString.parse(location.search).q)
-    const [keyword, setKeyword] = useState(queryString.parse(location.search).q);
+    const [srchKeyword, setSrchKeyword] = useState(keyword);
     console.log('keyword >>> ', keyword);
     const handleSearch = () => {
-
-        axios.get('/api/todo?query=' + keyword)
+        axios.get('/api/todo?query=' + srchKeyword)
             .then(res => {
                 console.log('res.data > ', res.data);
                 setTodoList(res.data);
+                setKeyword(srchKeyword);
             })
+        console.log('keyword >>> ', srchKeyword);
 
-        history.push('/search?q=' + keyword)
+        history.push('/search?q=' + srchKeyword)
     }
     const handleEnter = (e) => {
         // console.log(keyword)
@@ -25,10 +25,13 @@ function SearchBar({ history, location, setTodoList }) {
             handleSearch();
         }
     }
+    const handleChange = (e) => {
+        setSrchKeyword(e.target.value)
+    }
     return (
         <div>
             <InputGroup className="mb-3" size="lg">
-                <FormControl value={keyword} onKeyDown={handleEnter} onChange={(e) => { setKeyword(e.target.value) }} />
+                <FormControl value={srchKeyword} onKeyDown={handleEnter} onChange={handleChange} />
                 <InputGroup.Append>
                     <Button className="btn btn-secondary" onClick={handleSearch} >
                         {"Search"}

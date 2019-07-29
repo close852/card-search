@@ -1,5 +1,6 @@
 package com.cjhm.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cjhm.entity.Tag;
 import com.cjhm.entity.Todo;
+import com.cjhm.repository.TagRepository;
 import com.cjhm.repository.TodoRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TodoController {
     TodoRepository todoRepository;
+    TagRepository tagRepository;
 
-    TodoController(TodoRepository todoRepository) {
+    TodoController(TodoRepository todoRepository, TagRepository tagRepository) {
         this.todoRepository = todoRepository;
+        this.tagRepository = tagRepository;
     }
 
     @GetMapping("/api/todo")
@@ -41,9 +46,15 @@ public class TodoController {
         // log.info(tags+"/"+substitude);
         System.out.println(parameters);
         System.out.println(todo.toString());
-        System.out.println(todo.getTags());
-        System.out.println(todo.getTags().getClass());
+        todo.setHeader(todo.getProductNameKo());
+        todo.setContent("content" + todo.getCategory());
+        for (String content : todo.getTags()) {
+            Tag tag = tagRepository.save(Tag.builder().tag(content).build());
+            todo.addTag(tag);
+        }
 
+        // todo.addTagList(Arrays.asList(todo.getTags()));
+        todoRepository.save(todo);
         return todo;
     }
 

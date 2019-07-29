@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Data
-public class Todo implements Serializable{
+public class Todo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,25 +42,25 @@ public class Todo implements Serializable{
 
 	@Column
 	private String content;
-	
-	@Column 
+
+	@Column
 	private String productNameKo;
-	
+
 	@Column
 	private String productNameEn;
 
 	@Column
 	private String category;
-	
+
 	@Embedded
 	private List<String> tags;
-	
+
 	@Column
 	private String[] substitude;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JsonManagedReference
-//	@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+	// @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 	@JoinTable(name = "t_todo_tag", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private List<Tag> tagList = new ArrayList<Tag>();
 
@@ -80,6 +80,9 @@ public class Todo implements Serializable{
 	}
 
 	public Todo addTag(Tag tag) {
+		if (tagList == null) {
+			tagList = new ArrayList<Tag>();
+		}
 		if (tag != null) {
 			tagList.remove(tag);
 			tagList.add(tag);
@@ -96,7 +99,7 @@ public class Todo implements Serializable{
 		}
 		return this;
 	}
-	
+
 	public List<String> getTags() {
 		return this.tags;
 	}
