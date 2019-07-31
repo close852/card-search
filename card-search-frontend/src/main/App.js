@@ -2,9 +2,11 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom';
 import { List } from 'immutable'
-import { Header, Footer, Remocon } from 'layout'
+import { Header, Footer } from 'layout'
+import { Remocon } from 'remocon'
 import { TodoList } from 'todo'
 import { ProductAdd } from 'product'
+import qs from 'query-string'
 import axios from 'axios'
 import './App.css'
 class App extends Component {
@@ -33,13 +35,16 @@ class App extends Component {
 
 
     componentDidMount() {
-        console.log("this.prop", this.props.location)
-        // console.log('this.props.location', this.props, queryString);
-        axios.get('/api/todo')
+        const queryString = qs.parse(this.props.location.search);
+        let query = "";
+        if (queryString) {
+            query = queryString.q || '';
+        }
+        this.setKeyword(query);
+        // console.log('queryString > ', query, queryString);
+        axios.get('/api/todo?query=' + query)
             .then(res => {
-                this.setState({
-                    todoList: List(res.data)
-                })
+                this.setTodoList(res.data)
             })
     }
 

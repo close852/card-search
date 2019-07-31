@@ -1,5 +1,5 @@
 import React from 'react'
-import { Todo } from './'
+import { Todo } from '.'
 import './TodoList.css'
 function TodoList({ todoList, setTodoList }) {
 
@@ -9,9 +9,11 @@ function TodoList({ todoList, setTodoList }) {
     ))
     console.log(mappingTodoList);
     return (
-        <div className="card-wrapper">
-            {mappingTodoList}
-            {mappingTodoList.size === 0 && <div>데이터가 없습니다.</div>}
+        <div className="list-wrapper">
+            <div className="card-wrapper">
+                {mappingTodoList}
+                {mappingTodoList.size === 0 && <div>데이터가 없습니다.</div>}
+            </div>
         </div>
     )
 }
